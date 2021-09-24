@@ -12,12 +12,12 @@ fetchMyIP((error, ip) => {
 });
 
 
-fetchCoordsByIP('142.126.224.216',() => {
+fetchCoordsByIP('142.126.224.216',(error, coordinates) => {
   if (error) {
     console.log("It didn't work!", error);
     return;
-  } 
-  console.log('It worked! Returned Coordinates:')
+  }
+  console.log('It worked! Returned Coordinates: ', coordinates);
 });
 
 // Done: Require it in index.js

@@ -60,9 +60,13 @@ const fetchCoordsByIP = (ip, callback) => {
       // return console.log(Error(msg), null);
     }
     
-    let result = {};
-    const latitude =  JSON.parse(body).latitude;
-    const longitude = JSON.parse(body).longitude;
+    // let result = {};
+    // const latitude =  JSON.parse(body).latitude;
+    // const longitude = JSON.parse(body).longitude;
+
+    const { latitude, longitude } = JSON.parse(body);
+
+    
     // check if value if response goes gthrough
     // const longitude = undefined
     if (!latitude || !longitude) {
@@ -70,10 +74,11 @@ const fetchCoordsByIP = (ip, callback) => {
       return callback('either no latitute or longitude', null);
     }
 
-    result["latitude"] = latitude;
-    result["longitude"] = longitude;
+    // result["latitude"] = latitude;
+    // result["longitude"] = longitude;
     // return console.log(null, result);
-    return callback(null, result);
+    // return callback(null, result);
+    callback(null, { latitude, longitude });
   });
 
 };
