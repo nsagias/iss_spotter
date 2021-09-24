@@ -70,22 +70,58 @@ const fetchCoordsByIP = (ip, callback) => {
     // check if value if response goes gthrough
     // const longitude = undefined
     if (!latitude || !longitude) {
-      // return console.log('either no latitute or longitude', null);
-      return callback('either no latitute or longitude', null);
+      return console.log('either no latitute or longitude', null);
     }
-
     // result["latitude"] = latitude;
     // result["longitude"] = longitude;
     // return console.log(null, result);
     // return callback(null, result);
-    callback(null, { latitude, longitude });
+    return callback(null, { latitude, longitude });
   });
+};
 
+/**
+ * Makes a single API request to retrieve upcoming ISS fly over times the for the given lat/lng coordinates.
+ * Input:
+ *   - An object with keys `latitude` and `longitude`
+ *   - A callback (to pass back an error or the array of resulting data)
+ * Returns (via Callback):
+ *   - An error, if any (nullable)
+ *   - The fly over times as an array of objects (null if error). Example:
+ *     [ { risetime: 134564234, duration: 600 }, ... ]
+ * https://iss-pass.herokuapp.com/json/?lat=YOUR_LAT_INPUT_HERE&lon=YOUR_LON_INPUT_HERE.
+ *
+ */
+
+const fetchISSFlyOverTimes = function(coords, callback) {
+  // const coords = { latitude: 43.783, longitude: -79.4122 }
+  const { latitude, longitude } = coords;
+  
+  if (!latitude || !longitude) {
+    // return console.log('either no latitute or longitude', null);
+    return callback('either no latitute or longitude', null);
+  }
+  const req = `https://iss-pass.herokuapp.com/json/?lat=${latitude}&lon=${longitude}`;
+
+  request(req, (error, resp, body) => {
+    if (error) {
+      console.log(error, null);
+    }
+    if (resp.statusCode !== 200) {
+      const msg = `Status Code ${resp.statusCode} when fetching IP. Response: ${body}`;
+      return callback(Error(msg), null);
+      // return console.log(Error(msg), null);
+    }
+    // returns an array
+    const { response } = JSON.parse(body);
+    // return console.log(null, response);
+    return callback(null, response);
+  });
+  
 };
 
 module.exports = {
   fetchMyIP,
-  fetchCoordsByIP
+  fetchCoordsByIP,
+  fetchISSFlyOverTimes
 };
-
-
