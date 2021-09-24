@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/nsagias/iss_spotter#readme",
   "dependencies": {
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "request": "^2.88.2"
   }
 }
