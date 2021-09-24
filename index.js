@@ -21,10 +21,10 @@ fetchCoordsByIP('142.126.224.216',(error, coordinates) => {
 });
 
 
-fetchISSFlyOverTimes('{ latitude: 43.783, longitude: -79.4122 }' ,(error, response) => {
+fetchISSFlyOverTimes({ latitude: 43.783, longitude: -79.4122 } ,(error, response) => {
   if (error) {
     console.log("It didn't work!", error);
     return;
   }
-  console.log('It worked! Returned Coordinates: ', response);
+  console.log('It worked! Returned Flyover Times: ', response);
 });
